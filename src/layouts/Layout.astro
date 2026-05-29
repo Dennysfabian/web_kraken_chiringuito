@@ -1,0 +1,312 @@
+---
+export interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = 'El Kraken Chiringuito — Donde la Leyenda se Sirve Fría',
+  description = 'Chiringuito de playa en El Prat de Llobregat, Barcelona. Cócteles, cocina de mar y ambiente inigualable frente al Mediterráneo. Bienvenidos al Kraken.',
+} = Astro.props;
+
+const path = Astro.url.pathname.replace(/\/$/, '') || '/';
+const isHome  = path === '/';
+const isCarta = path === '/carta';
+const sh = (id: string) => isHome ? `#${id}` : `/#${id}`;
+---
+
+<!doctype html>
+<html lang="es" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <link rel="icon" type="image/png" href="/imagenes/logo_malo.png" />
+    <title>{title}</title>
+
+    <!-- Google Fonts: Pirata One (pirate) + Cinzel (elegant serif) + Crimson Pro (body) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Pirata+One&family=Cinzel:wght@400;600;700;900&family=Crimson+Pro:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+
+  <body class="bg-kraken-abyss text-kraken-cream overflow-x-hidden">
+    <!-- ═══════════════════════════════════════
+         NAVBAR
+    ═══════════════════════════════════════ -->
+    <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-500">
+      <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+
+        <!-- Logo -->
+        <a href="/" class="flex items-center gap-3 group">
+          <!-- NOTA DEV: Logo oficial del Kraken -->
+          <img
+            src="/imagenes/logo_malo.png"
+            alt="El Kraken Chiringuito"
+            class="h-12 w-12 rounded-full object-contain transition-transform duration-300 group-hover:scale-110 group-hover:rotate-6"
+          />
+          <span class="font-cinzel font-bold text-kraken-gold tracking-widest text-sm uppercase hidden sm:block nav-logo-text">
+            El Kraken
+          </span>
+        </a>
+
+        <!-- Desktop nav links -->
+        <ul class="hidden md:flex items-center gap-8 font-cinzel text-xs tracking-widest uppercase">
+          <li><a href={sh('esencia')}    class="nav-link text-kraken-sand hover:text-kraken-gold transition-colors duration-300">Nuestra Esencia</a></li>
+          <li><a href="/carta"           class={`nav-link transition-colors duration-300 ${isCarta ? 'text-kraken-gold' : 'text-kraken-sand hover:text-kraken-gold'}`}>La Carta</a></li>
+          <li><a href={sh('testimonios')} class="nav-link text-kraken-sand hover:text-kraken-gold transition-colors duration-300">Marineros</a></li>
+          <li><a href={sh('contacto')}   class="nav-link text-kraken-sand hover:text-kraken-gold transition-colors duration-300">Dónde Estamos</a></li>
+        </ul>
+
+        <!-- CTA button -->
+        <a
+          href="https://www.instagram.com/krakenchiringuito/"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="hidden md:flex items-center gap-2 border border-kraken-gold text-kraken-gold font-cinzel text-xs tracking-widest uppercase px-5 py-2.5 rounded-none hover:bg-kraken-gold hover:text-kraken-abyss transition-all duration-300"
+        >
+          <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+          </svg>
+          Síguenos
+        </a>
+
+        <!-- Mobile hamburger -->
+        <button id="menu-toggle" class="md:hidden flex flex-col gap-1.5 p-2" aria-label="Menú">
+          <span class="block w-6 h-0.5 bg-kraken-gold transition-all duration-300 menu-line"></span>
+          <span class="block w-6 h-0.5 bg-kraken-gold transition-all duration-300 menu-line"></span>
+          <span class="block w-4 h-0.5 bg-kraken-gold transition-all duration-300 menu-line"></span>
+        </button>
+      </div>
+
+      <!-- Mobile menu -->
+      <div id="mobile-menu" class="hidden md:hidden bg-kraken-deep/95 backdrop-blur-md border-t border-kraken-gold/20">
+        <ul class="flex flex-col py-6 px-6 gap-5 font-cinzel text-xs tracking-widest uppercase">
+          <li><a href={sh('esencia')}    class="block text-kraken-sand hover:text-kraken-gold transition-colors" onclick="closeMobileMenu()">Nuestra Esencia</a></li>
+          <li><a href="/carta"           class={`block transition-colors hover:text-kraken-gold ${isCarta ? 'text-kraken-gold' : 'text-kraken-sand'}`} onclick="closeMobileMenu()">La Carta</a></li>
+          <li><a href={sh('testimonios')} class="block text-kraken-sand hover:text-kraken-gold transition-colors" onclick="closeMobileMenu()">Marineros</a></li>
+          <li><a href={sh('contacto')}   class="block text-kraken-sand hover:text-kraken-gold transition-colors" onclick="closeMobileMenu()">Dónde Estamos</a></li>
+          <li>
+            <a href="https://www.instagram.com/krakenchiringuito/" target="_blank" class="inline-flex items-center gap-2 border border-kraken-gold text-kraken-gold px-4 py-2">
+              Instagram
+            </a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <!-- Main content slot -->
+    <main>
+      <slot />
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-kraken-abyss border-t border-kraken-gold/20 py-10">
+      <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-6">
+        <div class="flex items-center gap-3">
+          <img src="/imagenes/logo_malo.png" alt="El Kraken" class="h-10 w-10 rounded-full object-contain opacity-80" />
+          <div>
+            <p class="font-cinzel text-kraken-gold text-sm tracking-widest">EL KRAKEN</p>
+            <p class="font-crimson text-kraken-sand/60 text-xs">Chiringuito · El Prat de Llobregat</p>
+          </div>
+        </div>
+        <p class="font-crimson text-kraken-sand/40 text-sm text-center">
+          © 2025 El Kraken Chiringuito. Todos los derechos reservados.
+        </p>
+        <a
+          href="https://www.instagram.com/krakenchiringuito/"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="text-kraken-sand/60 hover:text-kraken-gold transition-colors"
+          aria-label="Instagram"
+        >
+          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+          </svg>
+        </a>
+      </div>
+    </footer>
+  </body>
+</html>
+
+<style is:global>
+  /* ════════════════════════════════
+     DESIGN SYSTEM — CSS VARIABLES
+  ════════════════════════════════ */
+  :root {
+    --gold:        #c9a84c;
+    --gold-light:  #e8c66d;
+    --gold-dim:    #a07c30;
+    --cream:       #f5e6c8;
+    --sand:        #e8d5a3;
+    --deep:        #060d1a;
+    --ocean:       #0a1628;
+    --navy:        #1a2744;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Crimson Pro', Georgia, serif;
+    background-color: var(--deep);
+    color: var(--cream);
+    overflow-x: hidden;
+  }
+
+  /* ════════════════════════════════
+     NOISE TEXTURE OVERLAY
+  ════════════════════════════════ */
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 9999;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+    opacity: 0.025;
+  }
+
+  /* ════════════════════════════════
+     GOLD SELECTION
+  ════════════════════════════════ */
+  ::selection {
+    background: rgba(201,168,76,0.3);
+    color: var(--gold-light);
+  }
+
+  /* ════════════════════════════════
+     SCROLL ANIMATIONS
+  ════════════════════════════════ */
+  .reveal {
+    opacity: 0;
+    transform: translateY(50px);
+    transition: opacity 0.9s cubic-bezier(0.16,1,0.3,1),
+                transform 0.9s cubic-bezier(0.16,1,0.3,1);
+  }
+  .reveal.from-left  { transform: translateX(-60px); }
+  .reveal.from-right { transform: translateX(60px); }
+  .reveal.scale-up   { transform: scale(0.9) translateY(30px); }
+  .reveal.visible {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* Stagger children — todos los hijos se hacen visibles */
+  .stagger-children > * {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.7s cubic-bezier(0.16,1,0.3,1),
+                transform 0.7s cubic-bezier(0.16,1,0.3,1);
+  }
+  /* Visible: todos a la vez, delay escalonado por posición */
+  .stagger-children.visible > * { opacity: 1; transform: none; }
+  .stagger-children.visible > *:nth-child(1)  { transition-delay: 0.08s; }
+  .stagger-children.visible > *:nth-child(2)  { transition-delay: 0.18s; }
+  .stagger-children.visible > *:nth-child(3)  { transition-delay: 0.28s; }
+  .stagger-children.visible > *:nth-child(4)  { transition-delay: 0.38s; }
+  .stagger-children.visible > *:nth-child(5)  { transition-delay: 0.48s; }
+  .stagger-children.visible > *:nth-child(6)  { transition-delay: 0.58s; }
+  .stagger-children.visible > *:nth-child(7)  { transition-delay: 0.68s; }
+  .stagger-children.visible > *:nth-child(8)  { transition-delay: 0.78s; }
+
+  /* ════════════════════════════════
+     GOLD SHIMMER TEXT UTILITY
+  ════════════════════════════════ */
+  .gold-shimmer {
+    background: linear-gradient(
+      90deg,
+      #a07c30 0%,
+      #e8c66d 30%,
+      #c9a84c 50%,
+      #e8c66d 70%,
+      #a07c30 100%
+    );
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: shimmer 4s linear infinite;
+  }
+
+  /* ════════════════════════════════
+     SECTION WAVE DIVIDER UTILITY
+  ════════════════════════════════ */
+  .wave-divider svg { display: block; }
+
+  /* ════════════════════════════════
+     SCROLLBAR STYLING
+  ════════════════════════════════ */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: var(--deep); }
+  ::-webkit-scrollbar-thumb { background: var(--gold-dim); border-radius: 3px; }
+  ::-webkit-scrollbar-thumb:hover { background: var(--gold); }
+
+  /* ════════════════════════════════
+     NAVBAR SCROLL STATE
+  ════════════════════════════════ */
+  #navbar {
+    background: transparent;
+  }
+  #navbar.scrolled {
+    background: rgba(6, 13, 26, 0.92);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(201,168,76,0.15);
+    box-shadow: 0 4px 30px rgba(0,0,0,0.5);
+  }
+
+  /* ════════════════════════════════
+     GOLD BORDER UTILITY
+  ════════════════════════════════ */
+  .border-gold-ornament {
+    border: 1px solid rgba(201,168,76,0.4);
+  }
+</style>
+
+<script>
+  // ── Navbar scroll state ──────────────────────────────────────
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 80) {
+      navbar?.classList.add('scrolled');
+    } else {
+      navbar?.classList.remove('scrolled');
+    }
+  }, { passive: true });
+
+  // ── Mobile menu ──────────────────────────────────────────────
+  const toggle = document.getElementById('menu-toggle');
+  const mobileMenu = document.getElementById('mobile-menu');
+
+  toggle?.addEventListener('click', () => {
+    mobileMenu?.classList.toggle('hidden');
+  });
+
+  (window as any).closeMobileMenu = () => {
+    mobileMenu?.classList.add('hidden');
+  };
+
+  // ── Intersection Observer for reveal animations ──────────────
+  const revealEls = document.querySelectorAll('.reveal, .stagger-children');
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.12, rootMargin: '0px 0px -60px 0px' }
+  );
+
+  revealEls.forEach((el) => observer.observe(el));
+</script>

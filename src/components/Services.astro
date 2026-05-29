@@ -1,0 +1,228 @@
+---
+// Services.astro — Bento UI Grid — "El Menú del Kraken"
+---
+
+<section id="servicios" class="relative bg-kraken-ocean py-24 md:py-36 overflow-hidden">
+
+  <!-- Background deep radial -->
+  <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(26,39,68,0.5)_0%,transparent_70%)]"></div>
+
+  <!-- Decorative anchor watermark -->
+  <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-[0.02] pointer-events-none select-none w-[600px] h-[600px]">
+    <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" fill="#c9a84c">
+      <circle cx="50" cy="20" r="8" fill="none" stroke="#c9a84c" stroke-width="3"/>
+      <line x1="50" y1="28" x2="50" y2="85" stroke="#c9a84c" stroke-width="3"/>
+      <path d="M30,50 C15,50 10,65 30,70 L50,85 L70,70 C90,65 85,50 70,50" fill="none" stroke="#c9a84c" stroke-width="3"/>
+      <line x1="20" y1="50" x2="80" y2="50" stroke="#c9a84c" stroke-width="3"/>
+    </svg>
+  </div>
+
+  <div class="max-w-7xl mx-auto px-6 relative z-10">
+
+    <!-- Section header -->
+    <div class="text-center mb-16 reveal stagger-children">
+      <div class="flex items-center justify-center gap-4 mb-4">
+        <div class="h-px w-16 bg-kraken-gold/40"></div>
+        <span class="font-cinzel text-xs tracking-[0.4em] text-kraken-gold/70 uppercase">El Menú</span>
+        <div class="h-px w-16 bg-kraken-gold/40"></div>
+      </div>
+      <h2 class="font-pirata text-5xl md:text-6xl text-kraken-cream mb-4">
+        Tesoros del <span class="gold-shimmer">Mediterráneo</span>
+      </h2>
+      <p class="font-crimson italic text-xl text-kraken-sand/70 max-w-lg mx-auto">
+        Desde las profundidades de nuestra cocina hasta tu mesa, directamente.
+      </p>
+    </div>
+
+    <!-- ══════════════════════════════════════════
+         BENTO GRID — MAIN LAYOUT
+         [  Cócteles (2×2)  ] [ Comida ] [ Ambiente ]
+         [  Cócteles cont.  ] [    Terraza (2×1)    ]
+    ══════════════════════════════════════════ -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 auto-rows-[280px] lg:auto-rows-[300px]">
+
+      <!-- ─ CARD 1: CÓCTELES (feature — 2 cols, 2 rows) ─ -->
+      <div class="bento-card group sm:col-span-2 sm:row-span-2 relative overflow-hidden border border-kraken-gold/20 hover:border-kraken-gold/60 transition-all duration-500 cursor-pointer reveal scale-up"
+           style="transition-delay:0s">
+
+        <!-- NOTA DEV: Foto "bebidas.png" — mojito artesanal con fondo de playa, muy vibrante -->
+        <img
+          src="/imagenes/bebidas.png"
+          alt="Cócteles artesanales El Kraken"
+          class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 filter saturate-110"
+        />
+
+        <!-- Dark overlay gradient -->
+        <div class="absolute inset-0 bg-gradient-to-t from-kraken-abyss/90 via-kraken-abyss/30 to-transparent transition-all duration-500 group-hover:from-kraken-abyss/70"></div>
+
+        <!-- Gold shimmer border on hover -->
+        <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+             style="box-shadow: inset 0 0 0 1px rgba(201,168,76,0.5);">
+        </div>
+
+        <!-- Content -->
+        <div class="absolute bottom-0 left-0 right-0 p-8 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+          <span class="inline-block font-cinzel text-xs tracking-widest text-kraken-gold/80 uppercase mb-3 border border-kraken-gold/40 px-3 py-1">
+            Especialidad
+          </span>
+          <h3 class="font-pirata text-4xl md:text-5xl text-kraken-cream mb-3 leading-tight">
+            Cócteles &<br/>Tragos del Kraken
+          </h3>
+          <p class="font-crimson text-kraken-sand/80 text-lg leading-relaxed mb-4 max-w-sm opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100">
+            Mojitos que saben a brisa marina, combinados con historia y
+            cócteles de autor que solo encontrarás aquí. Cada trago, una pequeña aventura.
+          </p>
+          <div class="flex flex-wrap gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-200">
+            {['Mojito del Kraken', 'Sangría Pirática', 'Daiquiri de Mar', 'Ron & Ron'].map(item => (
+              <span class="font-crimson text-sm text-kraken-gold/90 bg-kraken-abyss/70 px-3 py-1">
+                {item}
+              </span>
+            ))}
+          </div>
+        </div>
+
+        <!-- Hover glow corner -->
+        <div class="absolute top-0 right-0 w-32 h-32 bg-[radial-gradient(circle,rgba(201,168,76,0.15)_0%,transparent_70%)] opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+      </div>
+
+      <!-- ─ CARD 2: COCINA DE MAR ─ -->
+      <div class="bento-card group relative overflow-hidden border border-kraken-gold/20 hover:border-kraken-gold/60 transition-all duration-500 cursor-pointer reveal scale-up"
+           style="transition-delay:0.15s">
+
+        <!-- NOTA DEV: Foto "ensalada_cesar.jpg" — ensalada César en plato náutico de rayas azules sobre tabla de madera rústica -->
+        <img
+          src="/imagenes/ensalada_cesar.jpg"
+          alt="Cocina del Kraken — Ensalada César"
+          class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+        />
+        <div class="absolute inset-0 bg-gradient-to-t from-kraken-abyss/85 via-kraken-abyss/20 to-transparent"></div>
+
+        <div class="absolute bottom-0 left-0 right-0 p-6">
+          <span class="inline-block font-cinzel text-xs tracking-widest text-kraken-gold/80 uppercase mb-2 border border-kraken-gold/40 px-3 py-1">
+            Cocina
+          </span>
+          <h3 class="font-pirata text-3xl text-kraken-cream leading-tight mb-2">
+            Cocina de Mar
+          </h3>
+          <p class="font-crimson text-kraken-sand/70 text-base opacity-0 group-hover:opacity-100 transition-opacity duration-400 leading-snug">
+            Fresco, honesto y lleno de sabor mediterráneo.
+          </p>
+        </div>
+      </div>
+
+      <!-- ─ CARD 3: AMBIENTE & TERRAZA ─ -->
+      <div class="bento-card group relative overflow-hidden border border-kraken-gold/20 hover:border-kraken-gold/60 transition-all duration-500 cursor-pointer reveal scale-up"
+           style="transition-delay:0.3s">
+
+        <!-- NOTA DEV: Foto "interior.png" — terraza cubierta con vistas al mar, luz cálida de tarde, mesas blancas -->
+        <img
+          src="/imagenes/interior.png"
+          alt="Terraza El Kraken con vistas al mar"
+          class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 filter saturate-105"
+        />
+        <div class="absolute inset-0 bg-gradient-to-t from-kraken-abyss/85 via-kraken-abyss/20 to-transparent"></div>
+
+        <div class="absolute bottom-0 left-0 right-0 p-6">
+          <span class="inline-block font-cinzel text-xs tracking-widest text-kraken-gold/80 uppercase mb-2 border border-kraken-gold/40 px-3 py-1">
+            Terraza
+          </span>
+          <h3 class="font-pirata text-3xl text-kraken-cream leading-tight mb-2">
+            Terraza & Ambiente
+          </h3>
+          <p class="font-crimson text-kraken-sand/70 text-base opacity-0 group-hover:opacity-100 transition-opacity duration-400 leading-snug">
+            Vistas al Mediterráneo, brisa de mar y la mejor compañía.
+          </p>
+        </div>
+      </div>
+
+      <!-- ─ CARD 4: EL MURAL — full width feature ─ -->
+      <div class="bento-card group sm:col-span-3 relative overflow-hidden border border-kraken-gold/20 hover:border-kraken-gold/60 transition-all duration-500 cursor-pointer reveal"
+           style="min-height:220px; transition-delay:0.45s">
+
+        <!-- NOTA DEV: Foto "pared_kraken.png" — gran mural del pulpo Kraken en la fachada blanca, muy dramático -->
+        <img
+          src="/imagenes/pared_kraken.png"
+          alt="El Mural del Kraken — identidad del chiringuito"
+          class="absolute inset-0 w-full h-full object-cover object-center transition-transform duration-1000 group-hover:scale-105 filter saturate-90"
+        />
+        <div class="absolute inset-0 bg-gradient-to-r from-kraken-abyss/90 via-kraken-abyss/50 to-transparent"></div>
+
+        <!-- Content left-aligned -->
+        <div class="absolute inset-0 flex items-center px-8 md:px-16">
+          <div class="max-w-lg">
+            <span class="inline-block font-cinzel text-xs tracking-widest text-kraken-gold/80 uppercase mb-4 border border-kraken-gold/40 px-3 py-1">
+              Nuestra Identidad
+            </span>
+            <h3 class="font-pirata text-4xl md:text-5xl text-kraken-cream leading-tight mb-4">
+              El Mural que nos Define
+            </h3>
+            <p class="font-crimson text-xl text-kraken-sand/80 leading-relaxed">
+              Cada tentáculo de nuestro Kraken representa algo que amamos:
+              el mar, la libertad, el buen beber y la aventura compartida.
+            </p>
+          </div>
+        </div>
+
+        <!-- Right decorative glow -->
+        <div class="absolute right-0 inset-y-0 w-1/3 bg-[radial-gradient(ellipse_at_right,rgba(201,168,76,0.08)_0%,transparent_70%)] opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
+      </div>
+
+    </div>
+
+    <!-- ════════════════════════════════════════
+         EXTRAS STRIP — Quick features
+    ════════════════════════════════════════ -->
+    <div class="mt-8 grid grid-cols-2 md:grid-cols-4 gap-4 reveal">
+      {[
+        {
+          icon: `<svg class="w-8 h-8" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 9l10.5-3m0 6.553v3.75a2.25 2.25 0 01-1.632 2.163l-1.32.377a1.803 1.803 0 11-.99-3.467l2.31-.66a2.25 2.25 0 001.632-2.163zm0 0V2.25L9 5.25v10.303m0 0v3.75a2.25 2.25 0 01-1.632 2.163l-1.32.377a1.803 1.803 0 01-.99-3.467l2.31-.66A2.25 2.25 0 009 15.553z"/></svg>`,
+          title: 'Música en Vivo',
+          sub: 'Fines de semana',
+        },
+        {
+          icon: `<svg class="w-8 h-8" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.386 6.364l-1.591-1.591M12 18.75V21m-4.773-4.227l-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z"/></svg>`,
+          title: 'Abiertos al Sol',
+          sub: 'Mediodía y tarde',
+        },
+        {
+          icon: `<svg class="w-8 h-8" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z"/></svg>`,
+          title: 'Pet Friendly',
+          sub: 'Los perros también',
+        },
+        {
+          icon: `<svg class="w-8 h-8" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 00-2.456 2.456zM16.894 20.567L16.5 21.75l-.394-1.183a2.25 2.25 0 00-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 001.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 001.423 1.423l1.183.394-1.183.394a2.25 2.25 0 00-1.423 1.423z"/></svg>`,
+          title: 'Ambiente Único',
+          sub: 'Temática pirata',
+        },
+      ].map(({ icon, title, sub }) => (
+        <div class="bg-kraken-deep/80 border border-kraken-gold/15 p-6 flex flex-col items-center text-center gap-3 hover:border-kraken-gold/40 hover:bg-kraken-navy/50 transition-all duration-300 group">
+          <span class="text-kraken-gold/70 group-hover:text-kraken-gold transition-colors duration-300" set:html={icon} />
+          <p class="font-cinzel text-xs tracking-widest text-kraken-cream/90 uppercase">{title}</p>
+          <p class="font-crimson italic text-kraken-sand/50 text-sm">{sub}</p>
+        </div>
+      ))}
+    </div>
+
+  </div>
+
+  <!-- Bottom wave transition -->
+  <div class="absolute bottom-0 left-0 right-0 wave-divider">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 80" preserveAspectRatio="none" style="display:block;">
+      <path d="M0,20 C360,80 1080,0 1440,40 L1440,80 L0,80 Z" fill="#060d1a"/>
+    </svg>
+  </div>
+
+</section>
+
+<style>
+  .bento-card {
+    transition:
+      transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+      box-shadow 0.4s ease,
+      border-color 0.4s ease;
+  }
+  .bento-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 24px 80px rgba(0,0,0,0.6), 0 0 0 1px rgba(201,168,76,0.3);
+  }
+</style>

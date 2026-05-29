@@ -1,0 +1,199 @@
+---
+// Contact.astro — "Encuentra el Kraken" — Location, hours & final CTA
+---
+
+<section id="contacto" class="relative bg-kraken-ocean py-24 md:py-36 overflow-hidden">
+
+  <!-- Deep ocean background -->
+  <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom,rgba(26,39,68,0.8)_0%,transparent_70%)]"></div>
+  <div class="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-kraken-abyss/80"></div>
+
+  <!-- Rope decorative top border -->
+  <div class="absolute top-0 left-0 right-0 h-px"
+       style="background: repeating-linear-gradient(90deg, transparent 0px, rgba(201,168,76,0.3) 8px, transparent 16px);">
+  </div>
+
+  <div class="max-w-7xl mx-auto px-6 relative z-10">
+
+    <!-- Section header -->
+    <div class="text-center mb-16 reveal stagger-children">
+      <div class="flex items-center justify-center gap-4 mb-4">
+        <div class="h-px w-16 bg-kraken-gold/40"></div>
+        <span class="font-cinzel text-xs tracking-[0.4em] text-kraken-gold/70 uppercase">Encuentra el Kraken</span>
+        <div class="h-px w-16 bg-kraken-gold/40"></div>
+      </div>
+      <h2 class="font-pirata text-5xl md:text-6xl text-kraken-cream mb-4">
+        Ven al <span class="gold-shimmer">Puerto</span>
+      </h2>
+      <p class="font-crimson italic text-xl text-kraken-sand/70 max-w-lg mx-auto">
+        Nos encontrarás donde acaba el asfalto y empieza la arena.
+      </p>
+    </div>
+
+    <!-- MAIN GRID: Map left, Info right -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 items-stretch mb-16">
+
+      <!-- LEFT: Map embed + location badge -->
+      <div class="reveal from-left">
+        <div class="relative h-full min-h-[380px] overflow-hidden border border-kraken-gold/20 shadow-[0_20px_80px_rgba(0,0,0,0.6)]">
+          <!-- Google Maps embed — El Prat de Llobregat, coordenadas exactas 41.28703, 2.104465 -->
+          <iframe
+            src="https://maps.google.com/maps?q=41.28703,2.104465&t=&z=17&ie=UTF8&iwloc=&output=embed"
+            width="100%"
+            height="100%"
+            style="border:0; filter: invert(90%) hue-rotate(180deg) saturate(0.4) brightness(0.85);"
+            allowfullscreen
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            class="absolute inset-0 w-full h-full"
+            title="Ubicación El Kraken Chiringuito"
+          ></iframe>
+
+          <!-- Dark tint overlay for the map -->
+          <div class="absolute inset-0 bg-kraken-abyss/20 pointer-events-none"></div>
+
+          <!-- Location badge overlaid on map -->
+          <div class="absolute bottom-4 left-4 right-4 bg-kraken-abyss/90 backdrop-blur border border-kraken-gold/30 p-4 pointer-events-none">
+            <div class="flex items-start gap-3">
+              <svg class="w-5 h-5 text-kraken-gold flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                <path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+              </svg>
+              <div>
+                <p class="font-cinzel text-xs text-kraken-gold tracking-widest uppercase mb-1">El Kraken Chiringuito</p>
+                <p class="font-crimson text-kraken-sand/80 text-base">Passeig de la Platja, 23 · El Prat de Llobregat, Barcelona</p>
+                <p class="font-crimson italic text-kraken-gold/50 text-sm mt-0.5">A 30 metros de El Lobo de Mar</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT: Hours + Info cards -->
+      <div class="reveal from-right flex flex-col gap-6">
+
+        <!-- HOURS CARD -->
+        <div class="bg-kraken-deep/80 border border-kraken-gold/20 p-8 flex-1">
+          <div class="flex items-center gap-3 mb-6">
+            <svg class="w-5 h-5 text-kraken-gold" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            </svg>
+            <h3 class="font-cinzel text-sm tracking-widest text-kraken-gold uppercase">Horarios de Navegación</h3>
+          </div>
+
+          <div class="space-y-3 font-crimson text-base">
+            {[
+              { days: 'Lunes — Viernes',    hours: '12:00 — 22:00', active: false },
+              { days: 'Sábados',            hours: '11:00 — 01:00', active: true  },
+              { days: 'Domingos',           hours: '11:00 — 22:00', active: false },
+              { days: 'Festivos',           hours: 'Según la marea', active: false },
+            ].map(({ days, hours, active }) => (
+              <div class={`flex justify-between items-center py-2.5 border-b ${active ? 'border-kraken-gold/30' : 'border-kraken-gold/10'}`}>
+                <span class={`${active ? 'text-kraken-gold' : 'text-kraken-sand/70'}`}>{days}</span>
+                <span class={`font-semibold tabular-nums ${active ? 'text-kraken-gold' : 'text-kraken-cream/80'}`}>
+                  {hours}
+                  {active && (
+                    <span class="ml-2 inline-block w-2 h-2 rounded-full bg-green-400 animate-pulse"></span>
+                  )}
+                </span>
+              </div>
+            ))}
+          </div>
+
+          <p class="font-crimson italic text-kraken-sand/40 text-sm mt-4">
+            * Los horarios pueden variar. Síguenos en Instagram para novedades.
+          </p>
+        </div>
+
+        <!-- CONTACT INFO CARD -->
+        <div class="bg-kraken-deep/80 border border-kraken-gold/20 p-8">
+          <h3 class="font-cinzel text-sm tracking-widest text-kraken-gold uppercase mb-6">Contacto & Redes</h3>
+          <div class="space-y-4">
+
+            <!-- Instagram -->
+            <a
+              href="https://www.instagram.com/krakenchiringuito/"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="flex items-center gap-4 group"
+            >
+              <div class="w-10 h-10 bg-gradient-to-tr from-[#833ab4] via-[#fd1d1d] to-[#fcb045] flex items-center justify-center flex-shrink-0">
+                <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                </svg>
+              </div>
+              <div>
+                <p class="font-cinzel text-xs text-kraken-sand/60 tracking-widest uppercase">Instagram</p>
+                <p class="font-crimson text-kraken-cream/90 group-hover:text-kraken-gold transition-colors duration-300">@krakenchiringuito</p>
+              </div>
+              <svg class="w-4 h-4 text-kraken-gold/40 ml-auto group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+              </svg>
+            </a>
+
+            <!-- Location -->
+            <div class="flex items-center gap-4">
+              <div class="w-10 h-10 border border-kraken-gold/30 flex items-center justify-center flex-shrink-0">
+                <svg class="w-5 h-5 text-kraken-gold/70" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                </svg>
+              </div>
+              <div>
+                <p class="font-cinzel text-xs text-kraken-sand/60 tracking-widest uppercase">Ubicación</p>
+                <p class="font-crimson text-kraken-cream/90">Passeig de la Platja, 23 · El Prat de Llobregat</p>
+                <p class="font-crimson italic text-kraken-sand/40 text-sm">41.28703, 2.104465</p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════
+         FINAL CTA — The big magnetic button
+    ══════════════════════════════════════════════ -->
+    <div class="text-center reveal">
+      <div class="relative inline-flex flex-col items-center gap-6">
+
+        <!-- Glow effect behind button -->
+        <div class="absolute -inset-8 bg-[radial-gradient(ellipse,rgba(201,168,76,0.15)_0%,transparent_70%)] pointer-events-none animate-pulse-gold"></div>
+
+        <!-- Decorative text above button -->
+        <div class="flex items-center gap-3">
+          <div class="h-px w-24 bg-kraken-gold/30"></div>
+          <p class="font-cinzel text-xs tracking-[0.4em] text-kraken-gold/60 uppercase">Tu próxima aventura</p>
+          <div class="h-px w-24 bg-kraken-gold/30"></div>
+        </div>
+
+        <h3 class="font-pirata text-4xl md:text-5xl text-kraken-cream">
+          ¿Listo para zarpar?
+        </h3>
+
+        <!-- THE BIG CTA BUTTON -->
+        <a
+          href="https://www.instagram.com/krakenchiringuito/"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="cta-magnetic group relative inline-flex items-center gap-4 bg-kraken-gold text-kraken-abyss font-cinzel font-bold tracking-widest uppercase text-sm px-12 py-5 overflow-hidden transition-all duration-500 hover:shadow-[0_0_60px_rgba(201,168,76,0.5),0_0_120px_rgba(201,168,76,0.2)]"
+        >
+          <!-- Slide overlay on hover -->
+          <span class="absolute inset-0 bg-kraken-gold-light -translate-x-full group-hover:translate-x-0 transition-transform duration-500 ease-out"></span>
+          <span class="relative z-10 flex items-center gap-4">
+            <svg class="w-5 h-5 group-hover:rotate-12 transition-transform duration-300" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+            </svg>
+            Síguenos en Instagram
+          </span>
+        </a>
+
+        <p class="font-crimson italic text-kraken-sand/40 text-sm">
+          Todas las novedades, eventos y el ambiente del Kraken, en vivo.
+        </p>
+      </div>
+    </div>
+
+  </div>
+</section>

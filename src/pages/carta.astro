@@ -1,0 +1,314 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+interface MenuItem {
+  name: string;
+  desc: string;
+  price: string;
+  featured?: boolean;
+  tags?: string[];
+}
+
+const cocktails: MenuItem[] = [
+  { name: 'El Kraken Oscuro',       desc: 'Ron negro premium, ginger beer, lima exprimida, hielo esférico',             price: '12',   featured: true,  tags: ['Firma'] },
+  { name: 'Tentáculo Azul',         desc: 'Vodka, blue curaçao, zumo de lima, agua con gas, espuma salada',             price: '11',   featured: false, tags: [] },
+  { name: 'La Sirena',              desc: 'Gin rosa, elderflower, pepino fresco, tónica premium, ralladura de limón',   price: '13',   featured: false, tags: ['Popular'] },
+  { name: 'Amanecer Pirata',        desc: 'Tequila blanco, maracuyá, cítricos, espuma de coco, chile',                 price: '12',   featured: false, tags: [] },
+  { name: 'Naufragio de Verano',    desc: 'Ron blanco, menta fresca, lima, azúcar moreno, soda artesana',              price: '10',   featured: false, tags: [] },
+  { name: 'El Abismo',              desc: 'Mezcal artesano, bitter de naranja ahumada, twist de piel de pomelo',       price: '14',   featured: true,  tags: ['Especial'] },
+];
+
+const drinks: MenuItem[] = [
+  { name: 'Limonada Artesana',      desc: 'Con jengibre fresco, menta del Mediterráneo y ralladura de limón',          price: '4',    featured: false, tags: ['Sin alcohol'] },
+  { name: 'Sangría del Kraken',     desc: 'Vino de la casa, frutas de temporada, canela y naranja',                    price: '7',    featured: false, tags: [] },
+  { name: 'Cerveza Artesana',       desc: 'Selección de temporada, en barril o lata',                                  price: '4',    featured: false, tags: [] },
+  { name: 'Vino de la Casa',        desc: 'Blanco, tinto o rosado · copa',                                             price: '4',    featured: false, tags: [] },
+  { name: 'Zumo Natural del Día',   desc: 'Frutas de temporada, sin azúcares añadidos, recién exprimido',              price: '4.50', featured: false, tags: ['Sin alcohol'] },
+  { name: 'Agua Mineral',           desc: 'Con gas o sin gas · 50 cl',                                                 price: '2',    featured: false, tags: [] },
+];
+
+const starters: MenuItem[] = [
+  { name: 'Tentáculos a la Brasa',  desc: 'Pulpo gallego sobre crema de patata confitada, aceite de pimentón ahumado', price: '14',   featured: true,  tags: ['Estrella'] },
+  { name: 'Nido de Anchoas',        desc: 'Boquerones en vinagre, piparras, aceite de arbequina, pan tostado al ajo',  price: '9',    featured: false, tags: [] },
+  { name: 'Pan del Corsario',       desc: 'Masa madre, aioli de ajo negro, bottarga rallada, aceite virgen extra',     price: '7',    featured: false, tags: [] },
+  { name: 'Las Algas',              desc: 'Ensalada wakame, semillas de sésamo tostado, jengibre fresco, salsa ponzu', price: '8',    featured: false, tags: ['Vegano'] },
+  { name: 'Croquetas del Mar',      desc: 'Croquetas caseras de sepia y marisco, bechamel de tinta · 4 uds.',          price: '9',    featured: false, tags: [] },
+  { name: 'Empanada Marinera',      desc: 'Atún del norte, pimiento asado, cebolla caramelizada, masa artesana',       price: '7',    featured: false, tags: [] },
+];
+
+const seafood: MenuItem[] = [
+  { name: 'Arroz del Kraken',       desc: 'Arroz meloso con sepia fresca, gamba roja del Mediterráneo y alioli casero', price: '19',  featured: true,  tags: ['Firma'] },
+  { name: 'Dorada a la Sal',        desc: 'Dorada entera del Mediterráneo a la sal gorda, patatas y limón',             price: '22',  featured: false, tags: [] },
+  { name: 'Lubina a la Brasa',      desc: 'Lubina salvaje, hierbas marinas, limón asado, aceite de oliva virgen extra', price: '24',  featured: false, tags: [] },
+  { name: 'Calamares Rebozados',    desc: 'Calamares frescos de lonja, alioli casero, limón de la costa',               price: '15',  featured: false, tags: [] },
+  { name: 'Mejillones al Vino',     desc: 'Mejillones de roca, vino blanco, chalota, laurel y limón amarillo',          price: '12',  featured: false, tags: [] },
+  { name: 'Gambas al Ajillo',       desc: 'Gambas frescas, aceite de oliva arbequina, ajo laminado y guindilla',        price: '16',  featured: false, tags: [] },
+];
+
+const land: MenuItem[] = [
+  { name: 'Pollo Corsario',         desc: 'Pollo marinado en especias piratas, papas arrugadas con mojo verde canario', price: '15',  featured: false, tags: [] },
+  { name: 'Hamburguesa del Pirata', desc: 'Carne madurada 40 días, queso curado, cebolla morada encurtida, pan brioche',price: '16',  featured: true,  tags: ['Popular'] },
+  { name: 'César del Kraken',       desc: 'Romana, parmesano, anchoas de l\'Escala, croutons de ajo, aderezo artesano', price: '13', featured: false, tags: [] },
+  { name: 'Tabla de Ibéricos',      desc: 'Jamón ibérico de bellota, queso curado de oveja, membrillo, pan con tomate', price: '18',  featured: false, tags: [] },
+];
+
+const desserts: MenuItem[] = [
+  { name: 'Tarta de Mareas',        desc: 'Tarta de queso horneada al horno bajo, coulis de frutos rojos del bosque',  price: '7',   featured: true,  tags: ['Favorito'] },
+  { name: 'Volcán de Chocolate',    desc: 'Con corazón fundido y helado de vainilla de Madagascar',                    price: '7',   featured: false, tags: [] },
+  { name: 'Helados del Kraken',     desc: 'Selección artesana de temporada, dos bolas a elegir',                       price: '5',   featured: false, tags: [] },
+  { name: 'Flan del Naufragio',     desc: 'Flan de huevo casero, caramelo salado, nata fresca montada',                price: '6',   featured: false, tags: [] },
+];
+
+const menuSections = [
+  { id: 'cocteles', label: 'Cócteles',     emoji: '🍹', title: 'Cócteles de Autor',   sub: 'Brebajes dignos del Kraken más exigente',                    items: cocktails, cols: 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3' },
+  { id: 'bebidas',  label: 'Bebidas',      emoji: '🥤', title: 'Bebidas & Refrescos', sub: 'Para calmar la sed del marinero más valiente',               items: drinks,    cols: 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3' },
+  { id: 'tapas',    label: 'Para Picar',   emoji: '🦑', title: 'Para Picar',          sub: 'Aperitivos para abrir el apetito antes del naufragio',       items: starters,  cols: 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3' },
+  { id: 'mar',      label: 'Del Mar',      emoji: '🐟', title: 'Del Mar',             sub: 'Lo que el Mediterráneo nos trae, nosotros lo servimos',      items: seafood,   cols: 'grid-cols-1 sm:grid-cols-2' },
+  { id: 'tierra',   label: 'De la Tierra', emoji: '🥩', title: 'De la Tierra',        sub: 'Para los que prefieren pisar tierra firme antes de zarpar', items: land,      cols: 'grid-cols-1 sm:grid-cols-2' },
+  { id: 'postres',  label: 'Postres',      emoji: '🍮', title: 'Postres',             sub: 'El dulce final de toda buena travesía',                      items: desserts,  cols: 'grid-cols-1 sm:grid-cols-2' },
+];
+
+const tagStyles: Record<string, string> = {
+  'Firma':       'border-kraken-gold/50 text-kraken-gold',
+  'Popular':     'border-emerald-400/50 text-emerald-400',
+  'Estrella':    'border-amber-400/50 text-amber-400',
+  'Especial':    'border-purple-400/50 text-purple-400',
+  'Sin alcohol': 'border-sky-400/50 text-sky-400',
+  'Vegano':      'border-green-400/50 text-green-400',
+  'Favorito':    'border-rose-400/50 text-rose-400',
+};
+---
+
+<Layout
+  title="La Carta — El Kraken Chiringuito | El Prat de Llobregat"
+  description="Descubre la carta de El Kraken Chiringuito: cócteles artesanales, tapas del mar, arroces, pescados a la brasa y postres. El Prat de Llobregat, Barcelona."
+>
+
+  <!-- ══════════════════════════════════════
+       HERO COMPACTO
+  ══════════════════════════════════════ -->
+  <section class="relative bg-kraken-abyss overflow-hidden pt-32 pb-24">
+    <div class="absolute inset-0 bg-gradient-to-b from-kraken-abyss via-kraken-deep to-kraken-ocean"></div>
+    <div class="absolute inset-0 bg-[radial-gradient(ellipse_70%_60%_at_50%_100%,rgba(201,168,76,0.07)_0%,transparent_70%)]"></div>
+
+    <!-- Tentáculos decorativos -->
+    <div class="absolute left-0 bottom-0 w-40 md:w-56 h-60 md:h-80 opacity-10 pointer-events-none select-none">
+      <svg viewBox="0 0 200 400" xmlns="http://www.w3.org/2000/svg" class="w-full h-full">
+        <path d="M80,400 C60,350 20,300 30,250 C40,200 80,190 70,140 C60,90 10,70 20,20" stroke="#c9a84c" stroke-width="16" fill="none" stroke-linecap="round" opacity="0.8"/>
+        <path d="M110,400 C90,360 50,320 55,270 C60,220 100,200 95,150 C90,100 50,80 60,30" stroke="#c9a84c" stroke-width="10" fill="none" stroke-linecap="round" opacity="0.5"/>
+      </svg>
+    </div>
+    <div class="absolute right-0 bottom-0 w-40 md:w-56 h-60 md:h-80 opacity-10 pointer-events-none select-none" style="transform: scaleX(-1)">
+      <svg viewBox="0 0 200 400" xmlns="http://www.w3.org/2000/svg" class="w-full h-full">
+        <path d="M80,400 C60,350 20,300 30,250 C40,200 80,190 70,140 C60,90 10,70 20,20" stroke="#c9a84c" stroke-width="16" fill="none" stroke-linecap="round" opacity="0.8"/>
+        <path d="M110,400 C90,360 50,320 55,270 C60,220 100,200 95,150 C90,100 50,80 60,30" stroke="#c9a84c" stroke-width="10" fill="none" stroke-linecap="round" opacity="0.5"/>
+      </svg>
+    </div>
+
+    <div class="relative z-10 max-w-3xl mx-auto px-6 text-center">
+      <div class="flex items-center justify-center gap-4 mb-6">
+        <div class="h-px w-16 bg-kraken-gold/40"></div>
+        <span class="font-cinzel text-xs tracking-[0.5em] text-kraken-gold/70 uppercase">El Kraken Chiringuito</span>
+        <div class="h-px w-16 bg-kraken-gold/40"></div>
+      </div>
+
+      <h1 class="font-pirata text-[clamp(3.5rem,12vw,7.5rem)] leading-none gold-shimmer drop-shadow-[0_4px_30px_rgba(201,168,76,0.4)] mb-5">
+        La Carta
+      </h1>
+
+      <p class="font-crimson italic text-xl md:text-2xl text-kraken-sand/70 leading-relaxed mb-8">
+        "Lo que el mar nos trae, nosotros lo servimos."
+      </p>
+
+      <!-- Decorative divider con ancla -->
+      <div class="flex items-center justify-center gap-4 mb-8">
+        <div class="h-px w-20 bg-kraken-gold/25"></div>
+        <svg class="w-5 h-5 text-kraken-gold/40" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M12 2a3 3 0 1 1 0 6 3 3 0 0 1 0-6zm1 6.93A5.002 5.002 0 0 0 12 4a5 5 0 0 0-1 .07V8a1 1 0 0 0 2 0V8.93zM7 9a1 1 0 0 0-1 1 6 6 0 0 0 5 5.917V21H9a1 1 0 1 0 0 2h6a1 1 0 1 0 0-2h-2v-5.083A6 6 0 0 0 18 10a1 1 0 1 0-2 0 4 4 0 0 1-8 0 1 1 0 0 0-1-1z"/>
+        </svg>
+        <div class="h-px w-20 bg-kraken-gold/25"></div>
+      </div>
+
+      <p class="font-cinzel text-xs tracking-wider text-kraken-sand/35 uppercase">
+        Avísanos de cualquier alergia o intolerancia &nbsp;·&nbsp; Precios con IVA incluido
+      </p>
+    </div>
+
+    <div class="absolute bottom-0 left-0 right-0 wave-divider">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 50" preserveAspectRatio="none" style="display:block;">
+        <path d="M0,25 C480,50 960,0 1440,25 L1440,50 L0,50 Z" fill="#060d1a"/>
+      </svg>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════
+       STICKY TABS DE CATEGORÍA
+  ══════════════════════════════════════ -->
+  <div id="carta-nav" class="sticky top-20 z-40 bg-kraken-abyss/97 backdrop-blur-md border-b border-kraken-gold/15 overflow-x-auto scrollbar-hide">
+    <div class="max-w-7xl mx-auto px-4">
+      <ul class="flex gap-1 py-2 w-max min-w-full">
+        {menuSections.map(s => (
+          <li>
+            <a
+              href={`#${s.id}`}
+              data-tab={s.id}
+              class="carta-tab font-cinzel text-xs tracking-wider text-kraken-sand/55 px-3 md:px-4 py-2.5 whitespace-nowrap hover:text-kraken-gold transition-colors duration-200 inline-flex items-center gap-1.5 border-b-2 border-transparent"
+            >
+              <span class="text-sm">{s.emoji}</span>
+              <span>{s.label}</span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════
+       SECCIONES DEL MENÚ
+  ══════════════════════════════════════ -->
+  <div class="bg-kraken-deep">
+    {menuSections.map((section, idx) => (
+      <section
+        id={section.id}
+        data-menu-section
+        class={`py-16 md:py-24 border-b border-kraken-gold/10 scroll-mt-36 ${idx % 2 === 1 ? 'bg-[rgba(4,8,15,0.5)]' : ''}`}
+      >
+        <div class="max-w-7xl mx-auto px-6">
+
+          <!-- Cabecera de sección -->
+          <div class="flex items-start gap-5 mb-10 md:mb-14 reveal">
+            <div class="relative flex-shrink-0">
+              <span class="font-pirata text-8xl md:text-[7rem] text-kraken-gold/5 leading-none select-none absolute -top-5 -left-2 pointer-events-none">
+                {String(idx + 1).padStart(2, '0')}
+              </span>
+              <div class="w-14 h-14 bg-kraken-gold/8 border border-kraken-gold/25 flex items-center justify-center text-2xl relative z-10">
+                {section.emoji}
+              </div>
+            </div>
+            <div class="pt-1 min-w-0">
+              <h2 class="font-pirata text-3xl md:text-4xl lg:text-5xl text-kraken-cream leading-tight mb-1">
+                {section.title}
+              </h2>
+              <p class="font-crimson italic text-kraken-sand/50 text-base md:text-lg">{section.sub}</p>
+            </div>
+            <div class="hidden lg:block h-px flex-1 bg-gradient-to-r from-kraken-gold/20 to-transparent mt-7 ml-4 flex-shrink-0"></div>
+          </div>
+
+          <!-- Grid de items -->
+          <div class={`grid ${section.cols} gap-4 md:gap-5 reveal stagger-children`}>
+            {section.items.map(item => (
+              <article class={`group relative p-5 md:p-6 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_8px_40px_rgba(0,0,0,0.5)] ${item.featured ? 'bg-kraken-ocean/50 border border-kraken-gold/30 hover:border-kraken-gold/50' : 'bg-kraken-ocean/25 border border-kraken-gold/10 hover:border-kraken-gold/25'}`}>
+                {item.featured && (
+                  <div class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-kraken-gold/60 to-transparent"></div>
+                )}
+
+                <div class="flex items-start justify-between gap-4 mb-2.5">
+                  <h3 class={`font-pirata text-xl md:text-2xl leading-tight ${item.featured ? 'text-kraken-cream' : 'text-kraken-cream/85'}`}>
+                    {item.name}
+                  </h3>
+                  <span class={`font-cinzel font-bold text-sm whitespace-nowrap mt-1 flex-shrink-0 tabular-nums ${item.featured ? 'text-kraken-gold' : 'text-kraken-gold/75'}`}>
+                    {item.price}&thinsp;€
+                  </span>
+                </div>
+
+                <p class="font-crimson italic text-sm md:text-base text-kraken-sand/55 leading-relaxed">
+                  {item.desc}
+                </p>
+
+                {item.tags && item.tags.length > 0 && (
+                  <div class="mt-3 flex flex-wrap gap-1.5">
+                    {item.tags.map(tag => (
+                      <span class={`font-cinzel text-[10px] tracking-wider border px-2 py-0.5 ${tagStyles[tag] ?? 'border-kraken-gold/30 text-kraken-gold/70'}`}>
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                )}
+              </article>
+            ))}
+          </div>
+
+        </div>
+      </section>
+    ))}
+  </div>
+
+  <!-- ══════════════════════════════════════
+       CTA FINAL
+  ══════════════════════════════════════ -->
+  <section class="relative bg-kraken-abyss py-20 md:py-28 overflow-hidden text-center">
+    <div class="absolute inset-0 bg-[radial-gradient(ellipse_60%_60%_at_50%_50%,rgba(201,168,76,0.07)_0%,transparent_70%)]"></div>
+    <div class="relative z-10 max-w-2xl mx-auto px-6 reveal stagger-children">
+      <div class="flex items-center justify-center gap-4 mb-5">
+        <div class="h-px w-16 bg-kraken-gold/30"></div>
+        <span class="font-cinzel text-xs tracking-[0.4em] text-kraken-gold/60 uppercase">¿Preparado para zarpar?</span>
+        <div class="h-px w-16 bg-kraken-gold/30"></div>
+      </div>
+      <h2 class="font-pirata text-4xl md:text-5xl text-kraken-cream mb-3">
+        Ven a <span class="gold-shimmer">vivir la leyenda</span>
+      </h2>
+      <p class="font-crimson italic text-kraken-sand/55 text-lg mb-10">
+        Passeig de la Platja, 23 · El Prat de Llobregat · Barcelona
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a
+          href="/#contacto"
+          class="group relative inline-flex items-center justify-center gap-3 bg-kraken-gold text-kraken-abyss font-cinzel font-bold text-xs tracking-widest uppercase px-8 py-4 overflow-hidden transition-all duration-300 hover:shadow-[0_0_40px_rgba(201,168,76,0.4)]"
+        >
+          <span class="absolute inset-0 bg-kraken-gold-light -translate-x-full group-hover:translate-x-0 transition-transform duration-500 ease-out"></span>
+          <span class="relative z-10 flex items-center gap-3">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+              <path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+            </svg>
+            Cómo Llegar
+          </span>
+        </a>
+        <a
+          href="https://www.instagram.com/krakenchiringuito/"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center justify-center gap-3 border border-kraken-gold/60 text-kraken-gold font-cinzel text-xs tracking-widest uppercase px-8 py-4 hover:border-kraken-gold hover:bg-kraken-gold/10 transition-all duration-300"
+        >
+          <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+          </svg>
+          Síguenos
+        </a>
+      </div>
+    </div>
+  </section>
+
+</Layout>
+
+<style>
+  .carta-tab.active {
+    color: #c9a84c;
+    border-bottom-color: #c9a84c;
+  }
+  /* Ocultar scrollbar en la nav de tabs */
+  .scrollbar-hide::-webkit-scrollbar { display: none; }
+  .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+</style>
+
+<script>
+  // Activar el tab correspondiente al desplazarse
+  const tabs = document.querySelectorAll<HTMLElement>('[data-tab]');
+  const sections = document.querySelectorAll<HTMLElement>('[data-menu-section]');
+
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const id = entry.target.id;
+        tabs.forEach(tab => {
+          tab.classList.toggle('active', tab.dataset.tab === id);
+        });
+        // Scroll la tab activa a la vista dentro de la nav
+        const activeTab = document.querySelector<HTMLElement>(`[data-tab="${id}"]`);
+        activeTab?.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+      }
+    });
+  }, { threshold: 0.3, rootMargin: '-100px 0px -40% 0px' });
+
+  sections.forEach(s => io.observe(s));
+</script>

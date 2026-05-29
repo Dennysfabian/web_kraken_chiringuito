@@ -1,0 +1,462 @@
+---
+// Hero.astro — "BIENVENIDOS AL KRAKEN" — Full-screen WOW section
+---
+
+<section id="hero" class="relative min-h-screen flex flex-col items-center justify-start overflow-hidden">
+
+  <!-- ══════════════════════════════════════════════
+       DEEP OCEAN BACKGROUND — radial gradient layers
+  ══════════════════════════════════════════════ -->
+  <div class="absolute inset-0 z-0">
+    <!-- Base ocean gradient -->
+    <div class="absolute inset-0 bg-gradient-to-b from-[#04080f] via-[#060d1a] to-[#0a1628]"></div>
+    <!-- Radial glow from center-bottom (bioluminescence) -->
+    <div class="absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_50%_100%,rgba(26,39,68,0.8)_0%,transparent_70%)]"></div>
+    <!-- Subtle teal deep glow -->
+    <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-[radial-gradient(ellipse,rgba(26,107,107,0.15)_0%,transparent_70%)] blur-2xl"></div>
+    <!-- Gold ambient top-center (lantern light) -->
+    <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-[radial-gradient(ellipse,rgba(201,168,76,0.08)_0%,transparent_70%)]"></div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════
+       CANVAS PARTICLE SYSTEM (bioluminescent ocean)
+       position:fixed → visible en toda la página mientras scrolleas
+  ══════════════════════════════════════════════ -->
+  <canvas id="particles-canvas" class="fixed inset-0 z-[1] pointer-events-none opacity-80" style="width:100vw;height:100vh;"></canvas>
+
+  <!-- ══════════════════════════════════════════════
+       ROPE BORDER — top decorative element
+  ══════════════════════════════════════════════ -->
+  <div class="absolute top-0 left-0 right-0 h-1 z-10 opacity-40"
+       style="background: repeating-linear-gradient(90deg, #8b6535 0px, #c9a84c 8px, #8b6535 16px);">
+  </div>
+
+  <!-- ══════════════════════════════════════════════
+       VIDEO BACKGROUND — Kraken logo animado
+       mix-blend-mode:screen → el fondo oscuro del video desaparece,
+       solo queda el logo brillando sobre el océano
+  ══════════════════════════════════════════════ -->
+  <div class="absolute inset-0 z-[3] pointer-events-none select-none overflow-hidden">
+    <video
+      autoplay
+      loop
+      muted
+      playsinline
+      class="kraken-video-bg"
+    >
+      <!-- NOTA DEV: Coloca el archivo en public/videos/kraken.mp4 -->
+      <source src="/videos/kraken.mp4" type="video/mp4" />
+    </video>
+  </div>
+
+  <!-- ══════════════════════════════════════════════
+       LEFT TENTACLE DECORATION
+  ══════════════════════════════════════════════ -->
+  <div class="absolute left-0 bottom-0 z-[2] w-[38vw] h-[52vh] md:w-72 md:h-96 opacity-15 md:opacity-10 animate-sway origin-bottom-left pointer-events-none select-none">
+    <svg viewBox="0 0 200 400" xmlns="http://www.w3.org/2000/svg" class="w-full h-full">
+      <path d="M80,400 C60,350 20,300 30,250 C40,200 80,190 70,140 C60,90 10,70 20,20"
+            stroke="#c9a84c" stroke-width="16" fill="none" stroke-linecap="round"
+            opacity="0.8"/>
+      <path d="M110,400 C90,360 50,320 55,270 C60,220 100,200 95,150 C90,100 50,80 60,30"
+            stroke="#c9a84c" stroke-width="10" fill="none" stroke-linecap="round"
+            opacity="0.5"/>
+      <path d="M140,400 C115,370 80,340 78,295 C76,250 110,230 105,185"
+            stroke="#c9a84c" stroke-width="7" fill="none" stroke-linecap="round"
+            opacity="0.3"/>
+    </svg>
+  </div>
+
+  <!-- ══════════════════════════════════════════════
+       RIGHT TENTACLE DECORATION
+  ══════════════════════════════════════════════ -->
+  <div class="absolute right-0 bottom-0 z-[2] w-[38vw] h-[52vh] md:w-72 md:h-96 opacity-15 md:opacity-10 animate-sway-r origin-bottom-right pointer-events-none select-none" style="transform: scaleX(-1);">
+    <svg viewBox="0 0 200 400" xmlns="http://www.w3.org/2000/svg" class="w-full h-full">
+      <path d="M80,400 C60,350 20,300 30,250 C40,200 80,190 70,140 C60,90 10,70 20,20"
+            stroke="#c9a84c" stroke-width="16" fill="none" stroke-linecap="round"
+            opacity="0.8"/>
+      <path d="M110,400 C90,360 50,320 55,270 C60,220 100,200 95,150 C90,100 50,80 60,30"
+            stroke="#c9a84c" stroke-width="10" fill="none" stroke-linecap="round"
+            opacity="0.5"/>
+    </svg>
+  </div>
+
+  <!-- ══════════════════════════════════════════════
+       LOCATION BADGE — anclada al top del hero
+  ══════════════════════════════════════════════ -->
+  <div class="relative z-10 flex items-center justify-center gap-3 md:gap-5 pt-28 md:pt-32 hero-fade-1 w-full px-5">
+    <!-- Líneas y anclas: solo en md+ -->
+    <div class="hidden md:block h-px w-20 bg-gradient-to-r from-transparent to-kraken-gold opacity-50 flex-shrink-0"></div>
+    <svg class="hidden md:block w-5 h-5 text-kraken-gold opacity-70 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24">
+      <path d="M12 2a3 3 0 1 1 0 6 3 3 0 0 1 0-6zm1 6.93A5.002 5.002 0 0 0 12 4a5 5 0 0 0-1 .07V8a1 1 0 0 0 2 0V8.93zM7 9a1 1 0 0 0-1 1 6 6 0 0 0 5 5.917V21H9a1 1 0 1 0 0 2h6a1 1 0 1 0 0-2h-2v-5.083A6 6 0 0 0 18 10a1 1 0 1 0-2 0 4 4 0 0 1-8 0 1 1 0 0 0-1-1z"/>
+    </svg>
+
+    <!-- Texto: dos líneas en móvil, una en desktop -->
+    <p class="font-cinzel font-semibold text-center text-kraken-gold uppercase leading-tight
+              text-sm tracking-[0.12em]
+              md:text-xl md:tracking-[0.3em] md:whitespace-nowrap
+              lg:text-2xl lg:tracking-[0.35em]">
+      <span class="block md:inline">El Prat de Llobregat</span>
+      <span class="block md:inline md:mx-2 text-kraken-gold/60">&nbsp;·&nbsp;</span>
+      <span class="block md:inline">Barcelona</span>
+    </p>
+
+    <svg class="hidden md:block w-5 h-5 text-kraken-gold opacity-70 rotate-180 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24">
+      <path d="M12 2a3 3 0 1 1 0 6 3 3 0 0 1 0-6zm1 6.93A5.002 5.002 0 0 0 12 4a5 5 0 0 0-1 .07V8a1 1 0 0 0 2 0V8.93zM7 9a1 1 0 0 0-1 1 6 6 0 0 0 5 5.917V21H9a1 1 0 1 0 0 2h6a1 1 0 1 0 0-2h-2v-5.083A6 6 0 0 0 18 10a1 1 0 1 0-2 0 4 4 0 0 1-8 0 1 1 0 0 0-1-1z"/>
+    </svg>
+    <div class="hidden md:block h-px w-20 bg-gradient-to-l from-transparent to-kraken-gold opacity-50 flex-shrink-0"></div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════
+       TOP BLOCK — solo "Bienvenidos al"
+  ══════════════════════════════════════════════ -->
+  <div class="relative z-10 flex flex-col items-center text-center px-6 mt-4 md:mt-6">
+    <p class="font-cinzel text-xs md:text-sm tracking-[0.5em] text-kraken-gold/80 uppercase hero-fade-2">
+      ✦ Bienvenidos al ✦
+    </p>
+  </div>
+
+  <!-- ══════════════════════════════════════════════
+       SPACER — la cara del Kraken asoma aquí
+  ══════════════════════════════════════════════ -->
+  <div class="flex-1 min-h-[160px] md:min-h-[220px] lg:min-h-[260px]"></div>
+
+  <!-- ══════════════════════════════════════════════
+       BOTTOM BLOCK — subtítulo, tagline, CTAs, scroll
+  ══════════════════════════════════════════════ -->
+  <div class="relative z-10 flex flex-col items-center text-center px-6 max-w-4xl mx-auto pb-10 w-full">
+
+    <!-- MAIN TITLE — ahora abajo, encima del subtítulo -->
+    <h1 class="hero-fade-3 font-pirata leading-none mb-1">
+      <span class="block text-[clamp(4.5rem,15vw,11rem)] gold-shimmer drop-shadow-[0_4px_30px_rgba(201,168,76,0.5)]">
+        EL KRAKEN
+      </span>
+    </h1>
+
+    <!-- Subtitle -->
+    <p class="font-cinzel text-sm md:text-base tracking-[0.3em] text-kraken-sand/80 uppercase mb-3 hero-fade-4">
+      — Chiringuito —
+    </p>
+
+    <!-- Tagline -->
+    <p class="font-crimson italic text-xl md:text-2xl text-kraken-cream/90 max-w-xl leading-relaxed mb-8 hero-fade-5">
+      "Donde la leyenda emerge del mar... y se sirve bien fría."
+    </p>
+
+    <!-- CTAs -->
+    <div class="flex flex-col sm:flex-row gap-4 hero-fade-6">
+      <a
+        href="#servicios"
+        class="group relative inline-flex items-center gap-3 bg-kraken-gold text-kraken-abyss font-cinzel font-bold text-xs tracking-widest uppercase px-8 py-4 overflow-hidden transition-all duration-300 hover:shadow-[0_0_40px_rgba(201,168,76,0.5)]"
+      >
+        <span class="absolute inset-0 bg-kraken-gold-light translate-x-[-100%] group-hover:translate-x-0 transition-transform duration-500 ease-out"></span>
+        <span class="relative z-10 flex items-center gap-3">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
+          </svg>
+          Ver el Menú
+        </span>
+      </a>
+
+      <a
+        href="#contacto"
+        class="group inline-flex items-center gap-3 border border-kraken-gold/60 text-kraken-gold font-cinzel text-xs tracking-widest uppercase px-8 py-4 hover:border-kraken-gold hover:bg-kraken-gold/10 transition-all duration-300"
+      >
+        <svg class="w-4 h-4 group-hover:animate-bounce" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+          <path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+        </svg>
+        Cómo Llegar
+      </a>
+    </div>
+
+    <!-- Scroll indicator -->
+    <div class="mt-8 flex flex-col items-center gap-2 hero-fade-7 animate-bounce opacity-50">
+      <span class="font-cinzel text-xs tracking-widest text-kraken-gold/60 uppercase">Sumérgete</span>
+      <svg class="w-5 h-5 text-kraken-gold/60" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/>
+      </svg>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════
+       WAVE TRANSITION — bottom of hero
+  ══════════════════════════════════════════════ -->
+  <div class="absolute bottom-0 left-0 right-0 z-[3] wave-divider">
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 1440 120"
+      preserveAspectRatio="none"
+      class="w-full"
+      style="display:block;"
+    >
+      <!-- Deep wave layer 1 -->
+      <path
+        d="M0,60 C180,100 360,20 540,60 C720,100 900,20 1080,60 C1260,100 1380,40 1440,60 L1440,120 L0,120 Z"
+        fill="#060d1a"
+        opacity="0.5"
+      />
+      <!-- Wave layer 2 -->
+      <path
+        d="M0,80 C240,40 480,110 720,80 C960,50 1200,110 1440,80 L1440,120 L0,120 Z"
+        fill="#060d1a"
+        opacity="0.7"
+      />
+      <!-- Final solid fill -->
+      <path
+        d="M0,100 C360,80 1080,120 1440,95 L1440,120 L0,120 Z"
+        fill="#060d1a"
+      />
+    </svg>
+  </div>
+
+</section>
+
+<!-- ══════════════════════════════════════════════════════
+     PARTICLE SYSTEM + HERO ENTRANCE ANIMATIONS
+════════════════════════════════════════════════════════ -->
+<style>
+  /* Staggered hero entrance */
+  .hero-fade-1 { animation: heroFade 0.8s ease-out 0.2s both; }
+  .hero-fade-2 { animation: heroFade 0.8s ease-out 0.4s both; }
+  .hero-fade-3 { animation: heroFade 1s   ease-out 0.6s both; }
+  .hero-fade-4 { animation: heroFade 0.8s ease-out 0.8s both; }
+  .hero-fade-5 { animation: heroFade 0.9s ease-out 1.0s both; }
+  .hero-fade-6 { animation: heroFade 0.8s ease-out 1.2s both; }
+  .hero-fade-7 { animation: heroFade 0.8s ease-out 1.6s both; }
+
+  /* ── VIDEO BACKGROUND ──────────────────────────────────────
+     El vídeo ocupa todo el espacio del hero.
+     mix-blend-mode: screen → el fondo oscuro del vídeo
+     desaparece y solo brilla el logo.
+     mask-image radial → difumina el borde del rectángulo
+     del vídeo de forma completamente invisible.
+  ─────────────────────────────────────────────────────────── */
+  .kraken-video-bg {
+    /* Llena todo el hero */
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+
+    opacity: 0.55;
+    mix-blend-mode: screen;
+
+    /* Sin sombra amarilla */
+    filter: none;
+
+    /* Máscara radial: opaco en el centro, se desvanece en los bordes.
+       Esto elimina completamente el borde visible del rectángulo de vídeo. */
+    -webkit-mask-image: radial-gradient(
+      ellipse 75% 75% at 50% 50%,
+      black 30%,
+      rgba(0, 0, 0, 0.85) 50%,
+      rgba(0, 0, 0, 0.4) 70%,
+      transparent 100%
+    );
+    mask-image: radial-gradient(
+      ellipse 75% 75% at 50% 50%,
+      black 30%,
+      rgba(0, 0, 0, 0.85) 50%,
+      rgba(0, 0, 0, 0.4) 70%,
+      transparent 100%
+    );
+
+    animation: videoFadeIn 2.5s ease-out 0.3s both;
+  }
+
+  @keyframes videoFadeIn {
+    from { opacity: 0; }
+    to   { opacity: 0.55; }
+  }
+
+  /* ── MOBILE: video centrado ligeramente a la derecha y arriba ── */
+  @media (max-width: 767px) {
+    .kraken-video-bg {
+      transform: translateX(3%) translateY(-8%) scale(1.78);
+      transform-origin: 50% 50%;
+      opacity: 0.6;
+      -webkit-mask-image: radial-gradient(
+        ellipse 88% 78% at 50% 50%,
+        black 30%,
+        rgba(0,0,0,0.75) 55%,
+        transparent 100%
+      );
+      mask-image: radial-gradient(
+        ellipse 88% 78% at 50% 50%,
+        black 30%,
+        rgba(0,0,0,0.75) 55%,
+        transparent 100%
+      );
+    }
+  }
+
+  @keyframes heroFade {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+</style>
+
+<script>
+  // ── PARTICLE SYSTEM ─────────────────────────────────────────
+  const canvas = document.getElementById('particles-canvas') as HTMLCanvasElement;
+  if (canvas) {
+    const ctx = canvas.getContext('2d')!;
+
+    function resize() {
+      canvas.width  = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    resize();
+    window.addEventListener('resize', resize, { passive: true });
+
+    interface Particle {
+      x: number;
+      y: number;
+      size: number;
+      speedY: number;
+      speedX: number;
+      opacity: number;
+      opacityDecay: number;
+      color: string;
+      isBubble: boolean;
+    }
+
+    const colors = [
+      'rgba(201,168,76,',   // gold
+      'rgba(100,180,255,',  // ocean blue
+      'rgba(245,230,200,',  // cream
+      'rgba(26,160,130,',   // teal
+    ];
+
+    // ── Factory: ambient base particle ─────────────────────────
+    function createParticle(): Particle {
+      const isBubble = Math.random() > 0.35; // 65% burbujas, 35% chispas
+      return {
+        x:            Math.random() * canvas.width,
+        y:            canvas.height + Math.random() * 80,
+        size:         isBubble ? Math.random() * 4 + 1.5 : Math.random() * 1.8 + 0.4,
+        speedY:       Math.random() * 0.7 + 0.25,
+        speedX:       (Math.random() - 0.5) * 0.5,
+        opacity:      Math.random() * 0.55 + 0.2,
+        opacityDecay: Math.random() * 0.0012 + 0.0004,
+        color:        colors[Math.floor(Math.random() * colors.length)],
+        isBubble,
+      };
+    }
+
+    // ── Factory: burst particle (from scroll) ──────────────────
+    function createBurst(x?: number): Particle {
+      return {
+        x:            x !== undefined ? x : Math.random() * canvas.width,
+        y:            canvas.height + 10,
+        size:         Math.random() * 6 + 3,
+        speedY:       Math.random() * 2.5 + 1.2,
+        speedX:       (Math.random() - 0.5) * 1.2,
+        opacity:      Math.random() * 0.75 + 0.35,
+        opacityDecay: Math.random() * 0.006 + 0.003,
+        color:        Math.random() > 0.4 ? 'rgba(201,168,76,' : 'rgba(100,180,255,',
+        isBubble:     true,
+      };
+    }
+
+    // 200 ambient particles scattered across the full canvas on load
+    const BASE_COUNT = 200;
+    const particles: Particle[] = Array.from({ length: BASE_COUNT }, () => {
+      const p = createParticle();
+      p.y = Math.random() * canvas.height * 1.1;
+      return p;
+    });
+
+    // Separate array for scroll-burst particles (self-cleaning)
+    const burstParticles: Particle[] = [];
+
+    // ── Draw a single particle ──────────────────────────────────
+    function drawParticle(p: Particle) {
+      ctx.save();
+      ctx.globalAlpha = Math.max(0, p.opacity);
+      if (p.isBubble) {
+        // Hollow bubble with glossy highlight
+        ctx.strokeStyle = p.color + Math.min(p.opacity, 0.9) + ')';
+        ctx.lineWidth   = p.size > 3 ? 1 : 0.7;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+        ctx.stroke();
+        // Gloss dot top-left
+        ctx.fillStyle = 'rgba(255,255,255,0.55)';
+        ctx.beginPath();
+        ctx.arc(p.x - p.size * 0.32, p.y - p.size * 0.32, p.size * 0.22, 0, Math.PI * 2);
+        ctx.fill();
+      } else {
+        // Soft filled spark
+        ctx.fillStyle = p.color + Math.min(p.opacity, 0.9) + ')';
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+        ctx.fill();
+      }
+      ctx.restore();
+    }
+
+    // ── Main render loop ────────────────────────────────────────
+    function animate() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      // Ambient particles — recycle when they exit
+      for (let i = 0; i < particles.length; i++) {
+        const p = particles[i];
+        p.y       -= p.speedY;
+        p.x       += p.speedX;
+        p.opacity -= p.opacityDecay;
+        drawParticle(p);
+        if (p.y < -20 || p.opacity <= 0) {
+          particles[i] = createParticle();
+        }
+      }
+
+      // Burst particles — remove when done
+      for (let i = burstParticles.length - 1; i >= 0; i--) {
+        const p = burstParticles[i];
+        p.y       -= p.speedY;
+        p.x       += p.speedX;
+        p.opacity -= p.opacityDecay;
+        drawParticle(p);
+        if (p.y < -20 || p.opacity <= 0) {
+          burstParticles.splice(i, 1);
+        }
+      }
+
+      requestAnimationFrame(animate);
+    }
+
+    animate();
+
+    // ── Scroll burst: burbujas que emergen al desplazarte ───────
+    let lastScrollY = 0;
+    let scrollCooldown = false; // throttle to avoid overload
+
+    window.addEventListener('scroll', () => {
+      if (scrollCooldown) return;
+
+      const scrollDelta = Math.abs(window.scrollY - lastScrollY);
+      if (scrollDelta > 6) {
+        // Number of burst bubbles proportional to scroll speed, capped at 30
+        const count = Math.min(Math.floor(scrollDelta / 3), 30);
+
+        // Spawn bursts spread across the viewport width
+        for (let i = 0; i < count; i++) {
+          const xPos = Math.random() * canvas.width;
+          burstParticles.push(createBurst(xPos));
+        }
+
+        // Limit burst array to prevent memory runaway
+        if (burstParticles.length > 200) {
+          burstParticles.splice(0, burstParticles.length - 200);
+        }
+      }
+
+      lastScrollY = window.scrollY;
+
+      // 40 ms throttle
+      scrollCooldown = true;
+      setTimeout(() => { scrollCooldown = false; }, 40);
+    }, { passive: true });
+  }
+</script>
